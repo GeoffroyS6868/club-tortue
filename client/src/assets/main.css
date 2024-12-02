@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+  --main-0: #0b4e0b;
+  --main-1: #0f680f;
+  --main-2: #138313;
+  --main-3: #429b42;
+  --comp-0: #4e0b4e;
+  --comp-1: #680f68;
+  --comp-2: #831383;
+  --comp-3: #9b429b;
+  --white: #f3f8f3;
+  --black: #031a03;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100vh;
+  scrollbar-width: thin;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  background-color: var(--white);
+  color: var(--black);
+  margin: 0 0;
+}
