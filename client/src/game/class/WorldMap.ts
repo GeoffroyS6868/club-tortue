@@ -36,13 +36,6 @@ export default class WorldMap {
     }
     ctx.fillStyle = "green";
     ctx.fillRect(0, 0, windowSize.x, windowSize.y);
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "black";
-    ctx.fillText(
-      this.position.x.toString() + " " + this.position.y.toString(),
-      50,
-      50,
-    );
     //ctx.drawImage(this.image, this.position.x, this.position.y);
   }
 }

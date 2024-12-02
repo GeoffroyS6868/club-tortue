@@ -33,7 +33,7 @@ export default class Sprite {
     this.currentAnimation = config.currenAnimation || ANIMATION.IDLE;
     this.currentAnimationFrame = 0;
 
-    this.animationFrameLimit = config.animationFrameLimit || 6;
+    this.animationFrameLimit = config.animationFrameLimit || 20;
     this.animationFrameProgress = this.animationFrameLimit;
 
     this.animationsArray = [ANIMATION.IDLE, ANIMATION.WALK];

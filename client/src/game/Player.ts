@@ -29,16 +29,15 @@ export default class Player extends GameObject {
     this._mousePosition = { x: 0, y: 0 };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(state: State, canvasWidth: number) {
-    //this.handleMouseEvents(state.mouseInfo);
+  update(state: State) {
+    this.handleMouseEvents(state.mouseInfo);
 
     if (state.movements && this._moved) {
       this._movements = state.movements;
       this._moved = false;
     }
     this.updateSprite();
-    // this.updatePosition();
+    this.updatePosition();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

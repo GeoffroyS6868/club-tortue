@@ -53,6 +53,9 @@ export default class Game {
   }
 
   start() {
+    // Temporaire
+    this._mainPlayer.serverTick = 128;
+
     const step = () => {
       requestAnimationFrame(step);
       const mouseInfo: MouseInfo = this.mousePositionToWorldPosition(
@@ -60,13 +63,10 @@ export default class Game {
       );
 
       // this._socket.emit("playerMouseInfo", mouseInfo);
-      this._mainPlayer.update(
-        {
-          movements: this._directionInput.movements,
-          mouseInfo: mouseInfo,
-        },
-        this._canvas.width,
-      );
+      this._mainPlayer.update({
+        movements: this._directionInput.movements,
+        mouseInfo: mouseInfo,
+      });
       this.draw();
     };
     step();
