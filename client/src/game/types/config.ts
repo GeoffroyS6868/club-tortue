@@ -1,9 +1,9 @@
+import type { Socket } from "socket.io-client";
 import { ANIMATION } from "../enum/animation.e";
 import { ENTITY } from "../enum/entity.e";
 
 export declare interface Attributes {
   speed: number;
-  defense: number;
 }
 
 export declare interface Vector2D {
@@ -42,7 +42,7 @@ export declare interface PlayerConfig extends GameObjectConfig {
 export declare interface GameConfig {
   canvas: HTMLCanvasElement;
   windowSize: Vector2D;
-  // socket: Socket;
+  socket: Socket;
 }
 
 export declare interface WorldMapConfig {

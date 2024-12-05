@@ -34,8 +34,16 @@ export default class WorldMap {
     if (cameraPosition.y > this.size.y - windowSize.y / 2) {
       this.position.y = -this.size.y + windowSize.y;
     }
-    ctx.fillStyle = "green";
-    ctx.fillRect(0, 0, windowSize.x, windowSize.y);
-    //ctx.drawImage(this.image, this.position.x, this.position.y);
+    ctx.drawImage(
+      this.image,
+      0,
+      0,
+      this.size.x,
+      this.size.y,
+      this.position.x,
+      this.position.y,
+      this.size.x * 4,
+      this.size.y * 4,
+    );
   }
 }

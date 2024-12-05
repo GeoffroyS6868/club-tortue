@@ -1,6 +1,8 @@
 <script lang="ts">
 import Game from "@/game/Game";
-import type { GameConfig } from "@/game/types/config";
+import type { Vector2D } from "@/game/types/config";
+import type { OnlinePlayer, ServerInfo } from "@/game/types/protocol";
+import io, { Socket } from "socket.io-client";
 
 export default {
   name: "GameView",
@@ -12,11 +14,11 @@ export default {
       cvn.height = window.innerHeight;
       const ctx: CanvasRenderingContext2D | null = cvn.getContext("2d");
       if (ctx !== null) {
-        const game = new Game({
-          canvas: cvn,
-          windowSize: { x: cvn.width, y: cvn.height },
-        } as GameConfig);
-        game.start();
+        const socket: Socket = io(
+          import.meta.env.SERVER_URL || "http://localhost:3001",
+        );
+
+        launchGame(cvn, { x: cvn.width, y: cvn.height }, socket);
       }
     },
   },
@@ -24,6 +26,35 @@ export default {
     this.loadGame();
   },
 };
+
+function launchGame(
+  canvas: HTMLCanvasElement,
+  windowSize: Vector2D,
+  socket: Socket,
+) {
+  const world = new Game({
+    canvas: canvas,
+    socket: socket,
+    windowSize: windowSize,
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  socket.on("players", function (players: any) {
+    const playerMap = new Map<string, OnlinePlayer>(players);
+    world.updateOnlinePlayersMap(playerMap);
+  });
+
+  socket.on("playerDisconnect", function (socketId: string) {
+    world.removeOnlinePlayer(socketId);
+  });
+
+  socket.on("serverInfo", function (serverInfo: ServerInfo) {
+    console.log("Server:", serverInfo);
+    world.updateServerInfo(serverInfo);
+
+    world.start();
+  });
+}
 </script>
 
 <template>

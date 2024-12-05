@@ -1,6 +1,6 @@
-// import { Socket } from "socket.io-client";
+import { Socket } from "socket.io-client";
 import { DIRECTION } from "../enum/direction.e";
-// import type { PlayerCommands } from "../types/protocol";
+import type { PlayerCommands } from "../types/protocol";
 
 export default class DirectionInput {
   _keyMap: Map<string, DIRECTION>;
@@ -31,16 +31,15 @@ export default class DirectionInput {
     return this._movements;
   }
 
-  //init(socket: Socket) {
-  init() {
+  init(socket: Socket) {
     document.addEventListener("keydown", (e) => {
       const dir: DIRECTION | undefined = this._keyMap.get(e.code);
       if (dir !== undefined && this._userCommands[dir] === false) {
         this._userCommands[dir] = true;
-        /*socket.emit("playerCommands", {
+        socket.emit("playerCommands", {
           inputs: this._userCommands,
           updatedAt: new Date(),
-        } as PlayerCommands);*/
+        } as PlayerCommands);
         const directionUpdate = this._directionUpdate[dir];
         this._movements[directionUpdate[0]] += directionUpdate[1];
       }
@@ -50,10 +49,10 @@ export default class DirectionInput {
       const dir: DIRECTION | undefined = this._keyMap.get(e.code);
       if (dir !== undefined && this._userCommands[dir] === true) {
         this._userCommands[dir] = false;
-        /*socket.emit("playerCommands", {
+        socket.emit("playerCommands", {
           inputs: this._userCommands,
           updatedAt: new Date(),
-        } as PlayerCommands);*/
+        } as PlayerCommands);
         const directionUpdate = this._directionUpdate[dir];
         this._movements[directionUpdate[0]] -= directionUpdate[1];
       }

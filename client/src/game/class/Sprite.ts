@@ -127,6 +127,7 @@ export default class Sprite {
 
     if (cameraPosition.x < windowSize.x / 2) x = entity.x - this.ratio / 2;
     if (cameraPosition.y < windowSize.y / 2) y = entity.y - this.ratio / 2;
+
     const [frameX, frameY] = this.frame;
 
     if (this.isLoaded) {
@@ -138,8 +139,8 @@ export default class Sprite {
         this.ratio,
         x,
         y,
-        this.ratio,
-        this.ratio,
+        80,
+        80,
       );
     }
 

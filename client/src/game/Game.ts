@@ -1,5 +1,4 @@
-// import { Socket } from "socket.io-client";
-
+import { Socket } from "socket.io-client";
 import DirectionInput from "./class/DirectionInput";
 import MouseInput from "./class/MouseInput";
 import WorldMap from "./class/WorldMap";
@@ -9,11 +8,12 @@ import type { GameConfig, Vector2D } from "./types/config";
 import type { OnlinePlayer, ServerInfo } from "./types/protocol";
 import type { MouseInfo } from "./types/state";
 import { TurtleCity } from "./worlds/TurtleCity";
+import { tileToPosition } from "./utils/tiles";
 
 export default class Game {
   _canvas: HTMLCanvasElement;
   _ctx: CanvasRenderingContext2D;
-  // _socket: Socket;
+  _socket: Socket;
   _mainPlayer: Player;
   _players: Map<string, Player>;
   _map: WorldMap;
@@ -26,20 +26,22 @@ export default class Game {
     this._canvas = config.canvas;
     this._ctx = this._canvas.getContext("2d")!;
     this._ctx.imageSmoothingEnabled = false;
-    // this._socket = config.socket;
+    this._socket = config.socket;
     this._map = new WorldMap(TurtleCity);
     this._mainPlayer = new Player({
-      position: { x: 200, y: 200 },
+      position: { x: tileToPosition(10, 4, 20), y: tileToPosition(10, 4, 20) },
       spriteConfig: { src: "/game/TortueSprite.png", ratio: 20 },
       entityType: ENTITY.PLAYER,
-      socketId: "", // config.socket.id,
-      serverPosition: { x: 0, y: 0 },
+      socketId: config.socket.id || "",
+      serverPosition: {
+        x: tileToPosition(10, 4, 20),
+        y: tileToPosition(10, 4, 20),
+      },
     });
     this._players = new Map<string, Player>();
 
     this._directionInput = new DirectionInput();
-    this._directionInput.init();
-    //this._directionInput.init(this._socket);
+    this._directionInput.init(this._socket);
 
     this._mouseInput = new MouseInput();
     this._mouseInput.init(this._canvas);
@@ -53,7 +55,6 @@ export default class Game {
   }
 
   start() {
-    // Temporaire
     this._mainPlayer.serverTick = 128;
 
     const step = () => {
@@ -62,7 +63,7 @@ export default class Game {
         this._mouseInput.info,
       );
 
-      // this._socket.emit("playerMouseInfo", mouseInfo);
+      this._socket.emit("playerMouseInfo", mouseInfo);
       this._mainPlayer.update({
         movements: this._directionInput.movements,
         mouseInfo: mouseInfo,
@@ -113,7 +114,7 @@ export default class Game {
 
     this._map.draw(this._ctx, this._mainPlayer.position, this._windowSize);
 
-    // this.drawOtherPlayers();
+    this.drawOtherPlayers();
 
     this._mainPlayer.draw(
       this._ctx,
@@ -137,16 +138,16 @@ export default class Game {
 
   updateOnlinePlayersMap(players: Map<string, OnlinePlayer>) {
     for (const [key, value] of players) {
-      /*if (key === this._socket.id) {
+      if (key === this._socket.id) {
         this._mainPlayer.serverPosition = value._position;
         continue;
-      }*/
+      }
       let player = this._players.get(key);
       if (!player) {
         player = new Player({
           socketId: key,
           position: value._position,
-          spriteConfig: { src: "/game/TortueSprite.png", ratio: 80 },
+          spriteConfig: { src: "/game/TortueSprite.png", ratio: 20 },
           entityType: ENTITY.MULTIPLAYER,
           serverPosition: value._position,
         });
@@ -154,7 +155,7 @@ export default class Game {
         this._players.set(key, player);
         continue;
       }
-      // player.updateOnline(value._inputs, value._position, value._mousePosition);
+      player.updateOnline(value._inputs, value._position, value._mousePosition);
       this._players.set(key, player);
     }
   }

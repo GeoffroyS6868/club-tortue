@@ -2,9 +2,9 @@ import type { WorldMapConfig } from "../types/config";
 
 export const TurtleCity: WorldMapConfig = {
   mapSize: {
-    x: 6400,
-    y: 3840,
+    x: 3000 * 4,
+    y: 3000 * 4,
   },
-  lowerSrc: "/game/images/maps/spawn.png",
+  lowerSrc: "/game/maps/TurtleCity.png",
   upperSrc: "",
 };
