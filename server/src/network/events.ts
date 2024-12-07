@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
-import { PlayerCommands } from "../type/protocol";
+import { PlayerCommands } from "../types/protocol";
 import GameServer from "../class/GameServer";
-import { MouseInfo } from "../type/protocol";
+import { MouseInfo } from "../types/protocol";
 
 export function setupEventsListener(io: Server, gameServer: GameServer) {
   io.on("connection", (socket) => {

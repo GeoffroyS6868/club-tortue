@@ -1,5 +1,5 @@
 import { DIRECTION } from "../enum/Direction.e";
-import { Attributes, PlayerConfig, Vector2D } from "../type/config";
+import { Attributes, PlayerConfig, Vector2D } from "../types/config";
 import GameObject from "./GameObject";
 
 class Player extends GameObject {

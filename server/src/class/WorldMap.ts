@@ -1,5 +1,5 @@
-import { Vector2D } from "../type/config";
-import { IWorldMap } from "../type/worldMap";
+import { Vector2D } from "../types/config";
+import { IWorldMap } from "../types/worldMap";
 
 export default class WorldMap {
   private _name: string;

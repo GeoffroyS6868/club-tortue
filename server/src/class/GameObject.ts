@@ -1,4 +1,4 @@
-import { GameObjectConfig, Vector2D } from "../type/config";
+import { GameObjectConfig, Vector2D } from "../types/config";
 
 class GameObject {
   _position: Vector2D;

@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { setupEventsListener } from "../network/events";
-import { ServerConfig, Vector2D } from "../type/config";
+import { ServerConfig, Vector2D } from "../types/config";
 import { ATTRIBUTES } from "../enum/Attributes.e";
 import { DIRECTION } from "../enum/Direction.e";
 import { WORLDMAP } from "../enum/WorldMap.e";

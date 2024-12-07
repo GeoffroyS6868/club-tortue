@@ -1,29 +1,37 @@
-<script setup lang="ts"></script>
+<script lang="ts">
+export default {
+  name: "NavbarComponent",
+};
+</script>
 
 <template>
-  <div class="homeview">
-    <div class="navbar">
-      <RouterLink to="/" class="link">Club Tortue</RouterLink>
-      <RouterLink to="/game" class="link">Jouer</RouterLink>
-    </div>
+  <div class="home-view">
     <main>
       <div class="welcome">
-        <h1>Bienvenue sur Club Tortue</h1>
-        <p>
-          Club Tortue est un jeu multijoueur qui permet de s'amuser sur
-          différents jeux afin de récupérer des récompenses pour personnaliser
-          son expérience. Vous pouvez également rencontrer plein d'autres
-          tortues toutes plus fun les unes que les autres. Bon jeu !
-        </p>
+        <div class="welcome-div justify-center align-center">
+          <img alt="ClubTortue" src="/src/assets/images/ClubTortue.png" />
+        </div>
+        <div class="welcome-div">
+          <h1>Bienvenue sur Club Tortue</h1>
+          <p>
+            Club Tortue est un jeu multijoueur qui permet de s'amuser sur
+            différents jeux afin de récupérer des récompenses pour personnaliser
+            son expérience. Vous pouvez également rencontrer plein d'autres
+            tortues toutes plus fun les unes que les autres. Bon jeu !
+          </p>
+          <RouterLink to="/game" class="action-link">
+            Jouer maintenant
+          </RouterLink>
+        </div>
       </div>
     </main>
   </div>
 </template>
 
-<style>
-.homeview {
+<style scoped>
+.home-view {
   width: 100%;
-  height: 100lvh;
+  height: 90svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,60 +41,68 @@
   background-image: var(--white);
 }
 
-.navbar {
+.home-view main {
   width: 100%;
-  height: 4rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0rem 4rem;
-}
-
-.link {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  box-sizing: border-box;
-  text-decoration: none;
-  color: var(--black);
-  font-weight: 600;
-  font-size: 1.2rem;
-  overflow: hidden;
-  text-decoration: none;
-  transition-duration: 300ms;
-}
-
-.link:hover {
-  color: var(--main-3);
-  transition-duration: 300ms;
-}
-
-main {
-  width: 100%;
-  padding: 3rem;
+  padding: 5svh;
 }
 
 .welcome {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
+  align-items: stretch;
 }
 
-.welcome h1 {
+.welcome-div {
+  width: 50%;
+  height: 70svh;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-div img {
+  height: 100%;
+}
+
+.welcome-div h1 {
+  color: var(--black);
+  font-size: var(--fs-6);
+  font-weight: 800;
   padding: 0;
   margin: 0;
-  color: var(--black);
-  font-weight: 600;
-  font-size: 3rem;
+  margin: 15svh 0 2.5svh 0;
 }
 
-.welcome p {
+.welcome-div p {
   width: 50rem;
-  color: var(--black);
-  font-weight: 400;
-  font-size: 1.2rem;
+  color: var(--black-2);
+  font-size: var(--fs-2);
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+}
+
+.action-link {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: var(--black);
+  color: var(--white);
+  font-weight: 600;
+  font-size: var(--fs-3);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin-top: 2.5svh;
+  overflow: hidden;
+  text-decoration: none;
+  transition-duration: 300ms;
+}
+
+.action-link:hover {
+  background-color: var(--black-2);
 }
 </style>

@@ -1,4 +1,4 @@
-import { IWorldMap } from "../type/worldMap";
+import { IWorldMap } from "../types/worldMap";
 
 export default [
   {

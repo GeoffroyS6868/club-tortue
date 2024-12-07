@@ -1,11 +1,17 @@
 import fastify from "fastify";
 import fastifyIO from "fastify-socket.io";
-import { getServerConfig } from "./src/utils/serverConfig";
-import { ServerConfig } from "./src/type/config";
 import cors from "@fastify/cors";
+import dotenv from "dotenv";
+import { getServerConfig } from "./src/utils/serverConfig";
+import { ServerConfig } from "./src/types/config";
 import GameServer from "./src/class/GameServer";
+import { users } from "./src/routes/users";
+import dbPlugin from "./src/databases/db";
+
+dotenv.config();
 
 const server = fastify();
+
 server.register(cors, {
   hook: "preHandler",
   delegator: (req, callback) => {
@@ -25,6 +31,7 @@ server.register(fastifyIO, {
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   },
 });
+server.register(users, { prefix: "/users" });
 
 const serverConfig: ServerConfig = getServerConfig();
 const gameServer = new GameServer(serverConfig);

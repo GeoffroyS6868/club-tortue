@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { ServerConfig } from "../type/config";
+import { ServerConfig } from "../types/config";
 
 export function getServerConfig(): ServerConfig {
   try {

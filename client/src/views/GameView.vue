@@ -1,4 +1,5 @@
 <script lang="ts">
+import { API_URL } from "@/config";
 import Game from "@/game/Game";
 import type { Vector2D } from "@/game/types/config";
 import type { OnlinePlayer, ServerInfo } from "@/game/types/protocol";
@@ -14,9 +15,7 @@ export default {
       cvn.height = window.innerHeight;
       const ctx: CanvasRenderingContext2D | null = cvn.getContext("2d");
       if (ctx !== null) {
-        const socket: Socket = io(
-          import.meta.env.SERVER_URL || "http://localhost:3001",
-        );
+        const socket: Socket = io(API_URL || "http://localhost:3001");
 
         launchGame(cvn, { x: cvn.width, y: cvn.height }, socket);
       }
@@ -61,7 +60,7 @@ function launchGame(
   <canvas ref="canvas"></canvas>
 </template>
 
-<style>
+<style scoped>
 canvas {
   margin: 0;
   border: 0;

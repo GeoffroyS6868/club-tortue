@@ -1,16 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 :root {
-  --main-0: #0b4e0b;
-  --main-1: #0f680f;
-  --main-2: #138313;
-  --main-3: #429b42;
-  --comp-0: #4e0b4e;
-  --comp-1: #680f68;
-  --comp-2: #831383;
-  --comp-3: #9b429b;
-  --white: #f3f8f3;
-  --black: #031a03;
+  --main-0: #6dd36d;
+  --main-1: #33a733;
+  --main-2: #278027;
+  --main-3: #1b591b;
+  --main-4: #030b03;
+  --white: #fbfbfb;
+  --white-1: #ededed;
+  --white-2: #e0e0e0;
+  --black: #151515;
+  --black-1: #2f2f2f;
+  --black-2: #494949;
+
+  --fs-0: 0.5rem;
+  --fs-1: 0.75rem;
+  --fs-2: 1rem;
+  --fs-3: 1.25rem;
+  --fs-4: 1.5rem;
+  --fs-5: 2rem;
+  --fs-6: 3rem;
+  --fs-7: 5rem;
+  --fs-8: 8rem;
 }
 
 input::-webkit-outer-spin-button,
@@ -37,4 +48,28 @@ body {
   background-color: var(--white);
   color: var(--black);
   margin: 0 0;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-flex-start {
+  justify-content: flex-start;
+}
+
+.justify-flex-end {
+  justify-content: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-flex-start {
+  align-items: flex-start;
+}
+
+.align-flex-end {
+  align-items: flex-end;
 }
