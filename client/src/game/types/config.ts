@@ -11,14 +11,6 @@ export declare interface Vector2D {
   y: number;
 }
 
-export declare interface Inputs {
-  left: boolean;
-  right: boolean;
-  up: boolean;
-  down: boolean;
-  shoot: boolean;
-}
-
 export declare interface SpriteConfig {
   src: string;
   animations?: number[][][];

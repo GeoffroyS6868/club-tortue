@@ -1,7 +1,8 @@
 import { ACTION } from "./enum/animation.e";
-import type { Inputs, PlayerConfig, Vector2D } from "./types/config";
+import type { PlayerConfig, Vector2D } from "./types/config";
 import type { MouseInfo, State } from "./types/state";
 import GameObject from "./class/GameObject";
+import { DIRECTION } from "./enum/direction.e";
 
 export default class Player extends GameObject {
   private _moved: boolean;
@@ -59,6 +60,8 @@ export default class Player extends GameObject {
         serverPositionDiff.y;
       this.position = position;
 
+      console.log(this.position);
+
       this._moved = true;
       this._lastMove = new Date(now - (timeDif % this._timeBetweenUpdate));
     }
@@ -95,12 +98,14 @@ export default class Player extends GameObject {
     }
   }
 
-  updateOnline(inputs: Inputs, position: Vector2D, mousePosition: Vector2D) {
+  updateOnline(inputs: boolean[], position: Vector2D, mousePosition: Vector2D) {
     this.position = position;
     this._mousePosition = mousePosition;
 
-    this._movements[0] = -Number(inputs.left) + Number(inputs.right);
-    this._movements[1] = -Number(inputs.up) + Number(inputs.down);
+    this._movements[0] =
+      -Number(inputs[DIRECTION.LEFT]) + Number(inputs[DIRECTION.RIGHT]);
+    this._movements[1] =
+      -Number(inputs[DIRECTION.UP]) + Number(inputs[DIRECTION.DOWN]);
   }
 
   set serverTick(tick: number) {

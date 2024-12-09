@@ -80,19 +80,21 @@ export default class Sprite {
     windowSize: Vector2D,
     mapSize: Vector2D,
   ) {
-    let x = entity.x - this.ratio / 2 + windowSize.x / 2 - cameraPosition.x;
-    let y = entity.y - this.ratio / 2 + windowSize.y / 2 - cameraPosition.y;
+    let x =
+      entity.x - (this.ratio * 4) / 2 + windowSize.x / 2 - cameraPosition.x;
+    let y =
+      entity.y - (this.ratio * 4) / 2 + windowSize.y / 2 - cameraPosition.y;
 
     if (entity.x < windowSize.x / 2) {
-      x = entity.x - this.ratio / 2;
+      x = entity.x - (this.ratio * 4) / 2;
     } else if (entity.x > mapSize.x - windowSize.x / 2) {
-      x = -mapSize.x + windowSize.x + entity.x - this.ratio / 2;
+      x = -mapSize.x + windowSize.x + entity.x - (this.ratio * 4) / 2;
     }
 
     if (entity.y < windowSize.y / 2) {
-      y = entity.y - this.ratio / 2;
+      y = entity.y - (this.ratio * 4) / 2;
     } else if (entity.y > mapSize.y - windowSize.y / 2) {
-      y = -mapSize.y + windowSize.y + entity.y - this.ratio / 2;
+      y = -mapSize.y + windowSize.y + entity.y - (this.ratio * 4) / 2;
     }
 
     const [frameX, frameY] = this.frame;
@@ -122,11 +124,15 @@ export default class Sprite {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _mapSize: Vector2D,
   ) {
-    let x = entity.x - this.ratio / 2 + windowSize.x / 2 - cameraPosition.x;
-    let y = entity.y - this.ratio / 2 + windowSize.y / 2 - cameraPosition.y;
+    let x =
+      entity.x - (this.ratio * 4) / 2 + windowSize.x / 2 - cameraPosition.x;
+    let y =
+      entity.y - (this.ratio * 4) / 2 + windowSize.y / 2 - cameraPosition.y;
 
-    if (cameraPosition.x < windowSize.x / 2) x = entity.x - this.ratio / 2;
-    if (cameraPosition.y < windowSize.y / 2) y = entity.y - this.ratio / 2;
+    if (cameraPosition.x < windowSize.x / 2)
+      x = entity.x - (this.ratio * 4) / 2;
+    if (cameraPosition.y < windowSize.y / 2)
+      y = entity.y - (this.ratio * 4) / 2;
 
     const [frameX, frameY] = this.frame;
 

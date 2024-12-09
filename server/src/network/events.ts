@@ -10,7 +10,7 @@ export function setupEventsListener(io: Server, gameServer: GameServer) {
     gameServer.addPlayer(socket.id);
     socket.emit("serverInfo", {
       tick: gameServer.tick,
-      position: { x: 10 * 128 + 64, y: 10 * 128 + 64 },
+      position: { x: 3900, y: 3900 },
     });
 
     socket.on("disconnect", function () {

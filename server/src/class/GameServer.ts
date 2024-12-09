@@ -39,8 +39,8 @@ export default class GameServer {
         name: "",
         socketId: socketId,
         position: {
-          x: tileToPosition(10, this._ratio, this._pixelPerTile),
-          y: tileToPosition(10, this._ratio, this._pixelPerTile),
+          x: 3900,
+          y: 3900,
         },
         mousePosition: { x: 0, y: 0 },
         direction: DIRECTION.LEFT,

@@ -1,8 +1,8 @@
-import type { Inputs, Vector2D } from "./config";
+import type { Vector2D } from "./config";
 
 export declare interface OnlinePlayer {
   _position: Vector2D;
-  _inputs: Inputs;
+  _inputs: boolean[];
   _mousePosition: Vector2D;
 }
 

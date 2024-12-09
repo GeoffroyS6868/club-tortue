@@ -109,6 +109,9 @@ export default class Game {
     return newMouseInfo;
   }
 
+  /**
+   * Draw everything
+   */
   draw() {
     this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
 
@@ -124,9 +127,13 @@ export default class Game {
     );
   }
 
+  /**
+   * Draw and update sprite of other players
+   */
   drawOtherPlayers() {
     for (const [, player] of this._players) {
       player.updateSprite();
+      //player.setAnimation(ACTION.WALK);
       player.draw(
         this._ctx,
         this._mainPlayer.position,
@@ -134,6 +141,23 @@ export default class Game {
         this._map.size,
       );
     }
+  }
+
+  /**
+   * Draw a dot in the middle of the screen
+   */
+  drawMiddlePoint() {
+    this._ctx.beginPath();
+    this._ctx.arc(
+      this._windowSize.x / 2,
+      this._windowSize.y / 2,
+      10,
+      0,
+      Math.PI * 2,
+      false,
+    );
+    this._ctx.fillStyle = "blue";
+    this._ctx.fill();
   }
 
   updateOnlinePlayersMap(players: Map<string, OnlinePlayer>) {
