@@ -2,6 +2,10 @@ import { ACTION, ANIMATION } from "../enum/animation.e";
 import type { SpriteConfig, Vector2D } from "../types/config";
 
 export default class Sprite {
+  name?: string;
+  private _nameWidth: number;
+  private _nameWidthhalf: number;
+
   image: HTMLImageElement;
   isLoaded: boolean;
 
@@ -12,6 +16,8 @@ export default class Sprite {
   animationFrameProgress: number;
   animationsArray: ANIMATION[];
   ratio: number;
+  private _ratioUsed: number;
+  private _ratioHalf: number;
 
   constructor(config: SpriteConfig) {
     this.isLoaded = false;
@@ -20,6 +26,14 @@ export default class Sprite {
     this.image.onload = () => {
       this.isLoaded = true;
     };
+
+    this.name = config.name;
+    this._nameWidth = 0;
+    this._nameWidthhalf = 0;
+    if (this.name) {
+      this._nameWidth = config.ctx.measureText(this.name).width;
+      this._nameWidthhalf = this._nameWidth / 2;
+    }
 
     this.animations = config.animations || [
       [[0, 0]],
@@ -39,6 +53,8 @@ export default class Sprite {
     this.animationsArray = [ANIMATION.IDLE, ANIMATION.WALK];
 
     this.ratio = config.ratio || 20;
+    this._ratioUsed = this.ratio * 4;
+    this._ratioHalf = this._ratioUsed / 2;
   }
 
   get frame() {
@@ -80,21 +96,19 @@ export default class Sprite {
     windowSize: Vector2D,
     mapSize: Vector2D,
   ) {
-    let x =
-      entity.x - (this.ratio * 4) / 2 + windowSize.x / 2 - cameraPosition.x;
-    let y =
-      entity.y - (this.ratio * 4) / 2 + windowSize.y / 2 - cameraPosition.y;
+    let x = entity.x - this._ratioHalf + windowSize.x / 2 - cameraPosition.x;
+    let y = entity.y - this._ratioHalf + windowSize.y / 2 - cameraPosition.y;
 
     if (entity.x < windowSize.x / 2) {
-      x = entity.x - (this.ratio * 4) / 2;
+      x = entity.x - this._ratioHalf;
     } else if (entity.x > mapSize.x - windowSize.x / 2) {
-      x = -mapSize.x + windowSize.x + entity.x - (this.ratio * 4) / 2;
+      x = -mapSize.x + windowSize.x + entity.x - this._ratioHalf;
     }
 
     if (entity.y < windowSize.y / 2) {
-      y = entity.y - (this.ratio * 4) / 2;
+      y = entity.y - this._ratioHalf;
     } else if (entity.y > mapSize.y - windowSize.y / 2) {
-      y = -mapSize.y + windowSize.y + entity.y - (this.ratio * 4) / 2;
+      y = -mapSize.y + windowSize.y + entity.y - this._ratioHalf;
     }
 
     const [frameX, frameY] = this.frame;
@@ -124,15 +138,11 @@ export default class Sprite {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _mapSize: Vector2D,
   ) {
-    let x =
-      entity.x - (this.ratio * 4) / 2 + windowSize.x / 2 - cameraPosition.x;
-    let y =
-      entity.y - (this.ratio * 4) / 2 + windowSize.y / 2 - cameraPosition.y;
+    let x = entity.x - this._ratioHalf + windowSize.x / 2 - cameraPosition.x;
+    let y = entity.y - this._ratioHalf + windowSize.y / 2 - cameraPosition.y;
 
-    if (cameraPosition.x < windowSize.x / 2)
-      x = entity.x - (this.ratio * 4) / 2;
-    if (cameraPosition.y < windowSize.y / 2)
-      y = entity.y - (this.ratio * 4) / 2;
+    if (cameraPosition.x < windowSize.x / 2) x = entity.x - this._ratioHalf;
+    if (cameraPosition.y < windowSize.y / 2) y = entity.y - this._ratioHalf;
 
     const [frameX, frameY] = this.frame;
 
@@ -148,6 +158,10 @@ export default class Sprite {
         80,
         80,
       );
+    }
+
+    if (this.name) {
+      ctx.fillText(this.name, x + this._ratioHalf - this._nameWidthhalf, y);
     }
 
     this.updateAnimationProgress();

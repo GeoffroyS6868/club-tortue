@@ -6,7 +6,6 @@ import { getServerConfig } from "./src/utils/serverConfig";
 import { ServerConfig } from "./src/types/config";
 import GameServer from "./src/class/GameServer";
 import { users } from "./src/routes/users";
-import dbPlugin from "./src/databases/db";
 
 dotenv.config();
 

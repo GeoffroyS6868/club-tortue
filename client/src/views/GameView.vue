@@ -10,12 +10,23 @@ export default {
   components: {},
   methods: {
     loadGame() {
+      const token = localStorage.getItem("token");
+      if (token === null) {
+        this.$router.push("/login");
+        return;
+      }
+
       const cvn: HTMLCanvasElement = this.$refs.canvas as HTMLCanvasElement;
       cvn.width = window.innerWidth;
       cvn.height = window.innerHeight;
+
       const ctx: CanvasRenderingContext2D | null = cvn.getContext("2d");
       if (ctx !== null) {
-        const socket: Socket = io(API_URL || "http://localhost:3001");
+        const socket: Socket = io(API_URL, {
+          extraHeaders: {
+            Authorization: token,
+          },
+        });
 
         launchGame(cvn, { x: cvn.width, y: cvn.height }, socket);
       }

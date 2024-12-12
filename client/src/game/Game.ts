@@ -29,8 +29,14 @@ export default class Game {
     this._socket = config.socket;
     this._map = new WorldMap(TurtleCity);
     this._mainPlayer = new Player({
+      name: "",
       position: { x: tileToPosition(10, 4, 20), y: tileToPosition(10, 4, 20) },
-      spriteConfig: { src: "/game/TortueSprite.png", ratio: 20 },
+      spriteConfig: {
+        src: "/game/TortueSprite.png",
+        ratio: 20,
+        name: "",
+        ctx: this._ctx,
+      },
       entityType: ENTITY.PLAYER,
       socketId: config.socket.id || "",
       serverPosition: {
@@ -56,6 +62,9 @@ export default class Game {
 
   start() {
     this._mainPlayer.serverTick = 128;
+    this._ctx.font = "16px Arial";
+    this._ctx.fillStyle = "#000000";
+    this._ctx.textBaseline = "middle";
 
     const step = () => {
       requestAnimationFrame(step);
@@ -133,7 +142,6 @@ export default class Game {
   drawOtherPlayers() {
     for (const [, player] of this._players) {
       player.updateSprite();
-      //player.setAnimation(ACTION.WALK);
       player.draw(
         this._ctx,
         this._mainPlayer.position,
@@ -169,9 +177,15 @@ export default class Game {
       let player = this._players.get(key);
       if (!player) {
         player = new Player({
+          name: value._name,
           socketId: key,
           position: value._position,
-          spriteConfig: { src: "/game/TortueSprite.png", ratio: 20 },
+          spriteConfig: {
+            src: "/game/TortueSprite.png",
+            ratio: 20,
+            name: value._name,
+            ctx: this._ctx,
+          },
           entityType: ENTITY.MULTIPLAYER,
           serverPosition: value._position,
         });

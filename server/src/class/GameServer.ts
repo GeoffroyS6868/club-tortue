@@ -7,11 +7,12 @@ import { WORLDMAP } from "../enum/WorldMap.e";
 import Player from "./Player";
 import WorldMap from "./WorldMap";
 import worldMaps from "../ressources/worlds";
-import { tileToPosition } from "../utils/tiles";
+import { User } from "../types/user";
 
 export default class GameServer {
   private _worldMap: WorldMap;
   private _players: Map<string, Player>;
+  private _playersUser: Map<number, User>;
   private _tick: number;
   private _timeBetweenUpdate: number;
   private _lastUpdated: Date;
@@ -21,6 +22,7 @@ export default class GameServer {
 
   constructor(config: ServerConfig) {
     this._players = new Map<string, Player>();
+    this._playersUser = new Map<number, User>();
     this._playersConnecting = new Map<string, Player[]>();
     this._tick = config.tick || 128;
     this._timeBetweenUpdate = 1000 / this._tick;
@@ -32,11 +34,17 @@ export default class GameServer {
     this._pixelPerTile = config.pixelPerTile || 20;
   }
 
-  addPlayer(socketId: string) {
+  addPlayer(socketId: string, user: User): boolean {
+    if (this._playersUser.get(user.id)) {
+      return false;
+    }
+    this._playersUser.set(user.id, user);
+
     this._players.set(
       socketId,
       new Player({
-        name: "",
+        name: user.name,
+        id: user.id,
         socketId: socketId,
         position: {
           x: 3900,
@@ -48,9 +56,14 @@ export default class GameServer {
         attributes: { speed: ATTRIBUTES.SPEED },
       })
     );
+    return true;
   }
 
   removePlayer(socketId: string) {
+    const player: Player | undefined = this._players.get(socketId);
+    if (player) {
+      this._playersUser.delete(player.id);
+    }
     this._players.delete(socketId);
   }
 
@@ -99,7 +112,7 @@ export default class GameServer {
     const lastUpdatedTime: number = this._lastUpdated.getTime();
     const timeDif: number = now - lastUpdatedTime;
 
-    if (timeDif >= 1000 / 128) {
+    if (timeDif >= this._timeBetweenUpdate) {
       const nbOfMovements = Math.floor(timeDif / this._timeBetweenUpdate);
       for (let [key, player] of this._players) {
         let movements = player.movements;

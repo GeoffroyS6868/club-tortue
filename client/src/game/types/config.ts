@@ -12,6 +12,8 @@ export declare interface Vector2D {
 }
 
 export declare interface SpriteConfig {
+  name?: string;
+  ctx: CanvasRenderingContext2D;
   src: string;
   animations?: number[][][];
   currenAnimation?: ANIMATION;
@@ -20,6 +22,7 @@ export declare interface SpriteConfig {
 }
 
 export declare interface GameObjectConfig {
+  name: string;
   position: Vector2D;
   spriteConfig?: SpriteConfig;
   rigidBodyConfig?: RigidBodyConfig;

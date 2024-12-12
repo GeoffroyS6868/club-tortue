@@ -23,6 +23,7 @@ export declare interface GameObjectConfig {
 
 export declare interface PlayerConfig extends GameObjectConfig {
   name: string;
+  id: number;
   socketId: string;
   mousePosition: Vector2D;
   direction: Direction;

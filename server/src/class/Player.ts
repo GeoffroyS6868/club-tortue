@@ -4,6 +4,7 @@ import GameObject from "./GameObject";
 
 class Player extends GameObject {
   _name: string;
+  _id: number;
   _socketId: string;
   _mousePosition: Vector2D;
   _mouseButtons: boolean[];
@@ -17,6 +18,7 @@ class Player extends GameObject {
       position: config.position,
     });
     this._name = config.name;
+    this._id = config.id;
     this._socketId = config.socketId;
     this._mousePosition = config.mousePosition;
     this._mouseButtons = [false, false, false];
@@ -28,6 +30,10 @@ class Player extends GameObject {
 
   get socketId() {
     return this._socketId;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get movements(): Vector2D {

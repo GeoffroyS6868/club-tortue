@@ -5,6 +5,7 @@ import GameObject from "./class/GameObject";
 import { DIRECTION } from "./enum/direction.e";
 
 export default class Player extends GameObject {
+  private _name: string;
   private _moved: boolean;
   private _movements: number[];
   private _speed: number;
@@ -18,6 +19,7 @@ export default class Player extends GameObject {
   constructor(config: PlayerConfig) {
     super(config);
 
+    this._name = config.name;
     this._moved = false;
     this._movements = [0, 0];
     this._speed = 4;
@@ -27,6 +29,15 @@ export default class Player extends GameObject {
     this._timeBetweenUpdate = 0;
     this._serverPosition = config.serverPosition;
     this._mousePosition = { x: 0, y: 0 };
+  }
+
+  drawOther(
+    ctx: CanvasRenderingContext2D,
+    cameraPosition: Vector2D,
+    windowSize: Vector2D,
+    mapSize: Vector2D,
+  ): void {
+    super.drawOther(ctx, cameraPosition, windowSize, mapSize);
   }
 
   update(state: State) {
@@ -59,8 +70,6 @@ export default class Player extends GameObject {
         this.analyseMovement(1) * this._speed * nbOfMovements +
         serverPositionDiff.y;
       this.position = position;
-
-      console.log(this.position);
 
       this._moved = true;
       this._lastMove = new Date(now - (timeDif % this._timeBetweenUpdate));

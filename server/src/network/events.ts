@@ -2,12 +2,38 @@ import { Server } from "socket.io";
 import { PlayerCommands } from "../types/protocol";
 import GameServer from "../class/GameServer";
 import { MouseInfo } from "../types/protocol";
+import { tokenVerify } from "../utils/token";
+import { UserToken } from "../types/token";
+import { getUser } from "../controllers/users";
+import { User } from "../types/user";
 
 export function setupEventsListener(io: Server, gameServer: GameServer) {
-  io.on("connection", (socket) => {
-    console.log("Connected : " + socket.id);
+  io.on("connection", async (socket) => {
+    const token = socket.handshake.headers.authorization;
+    if (!token) {
+      socket.disconnect();
+      return;
+    }
 
-    gameServer.addPlayer(socket.id);
+    const userToken: UserToken = tokenVerify(token);
+    if (userToken.id === -1) {
+      socket.disconnect();
+      return;
+    }
+
+    const user: User | null = await getUser(userToken.id);
+    if (user === null) {
+      socket.disconnect();
+      return;
+    }
+
+    if (gameServer.addPlayer(socket.id, user) === false) {
+      socket.disconnect();
+      return;
+    }
+
+    console.log("Connected : " + user.name);
+
     socket.emit("serverInfo", {
       tick: gameServer.tick,
       position: { x: 3900, y: 3900 },
