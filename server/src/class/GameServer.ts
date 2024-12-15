@@ -3,10 +3,8 @@ import { setupEventsListener } from "../network/events";
 import { ServerConfig, Vector2D } from "../types/config";
 import { ATTRIBUTES } from "../enum/Attributes.e";
 import { DIRECTION } from "../enum/Direction.e";
-import { WORLDMAP } from "../enum/WorldMap.e";
 import Player from "./Player";
 import WorldMap from "./WorldMap";
-import worldMaps from "../ressources/worlds";
 import { User } from "../types/user";
 
 export default class GameServer {
@@ -18,20 +16,18 @@ export default class GameServer {
   private _lastUpdated: Date;
   private _ratio: number;
   private _pixelPerTile: number;
-  private _playersConnecting: Map<string, Player[]>;
 
   constructor(config: ServerConfig) {
     this._players = new Map<string, Player>();
     this._playersUser = new Map<number, User>();
-    this._playersConnecting = new Map<string, Player[]>();
     this._tick = config.tick || 128;
     this._timeBetweenUpdate = 1000 / this._tick;
     this._lastUpdated = new Date();
 
-    this._worldMap = new WorldMap(worldMaps[WORLDMAP.TURTLECITY]);
+    this._worldMap = new WorldMap(0, 0);
 
     this._ratio = config.ratio || 4;
-    this._pixelPerTile = config.pixelPerTile || 20;
+    this._pixelPerTile = config.pixelPerTile || 16;
   }
 
   addPlayer(socketId: string, user: User): boolean {
@@ -47,8 +43,8 @@ export default class GameServer {
         id: user.id,
         socketId: socketId,
         position: {
-          x: 3900,
-          y: 3900,
+          x: 1200,
+          y: 1200,
         },
         mousePosition: { x: 0, y: 0 },
         direction: DIRECTION.LEFT,
@@ -138,5 +134,9 @@ export default class GameServer {
 
   get tick(): number {
     return this._tick;
+  }
+
+  get mapString(): any {
+    return this._worldMap.mapString;
   }
 }

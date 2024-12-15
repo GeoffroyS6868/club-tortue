@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tileset version="1.10" tiledversion="1.11.0" name="Grass_Tiles_1" tilewidth="16" tileheight="16" tilecount="80" columns="8">
+ <image source="Cute_Fantasy/Cute_Fantasy/Tiles/Grass/Grass_Tiles_1.png" width="128" height="160"/>
+ <wangsets>
+  <wangset name="Grass" type="mixed" tile="-1">
+   <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangtile tileid="26" wangid="1,1,1,1,1,1,1,1"/>
+   <wangtile tileid="40" wangid="1,1,0,0,0,1,1,1"/>
+   <wangtile tileid="41" wangid="1,1,0,0,0,0,0,1"/>
+   <wangtile tileid="42" wangid="1,1,1,1,0,0,0,1"/>
+   <wangtile tileid="48" wangid="0,0,0,0,0,1,1,1"/>
+   <wangtile tileid="50" wangid="0,1,1,1,0,0,0,0"/>
+   <wangtile tileid="56" wangid="0,0,0,1,1,1,1,1"/>
+   <wangtile tileid="57" wangid="0,0,0,1,1,1,0,0"/>
+   <wangtile tileid="58" wangid="0,1,1,1,1,1,0,0"/>
+   <wangtile tileid="64" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="65" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="72" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="73" wangid="0,0,0,0,0,0,0,1"/>
+  </wangset>
+  <wangset name="Dirt" type="mixed" tile="-1">
+   <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
+   <wangtile tileid="40" wangid="0,0,0,1,0,0,0,0"/>
+   <wangtile tileid="41" wangid="0,0,0,1,1,1,0,0"/>
+   <wangtile tileid="42" wangid="0,0,0,0,0,1,0,0"/>
+   <wangtile tileid="48" wangid="0,1,1,1,0,0,0,0"/>
+   <wangtile tileid="49" wangid="1,1,1,1,1,1,1,1"/>
+   <wangtile tileid="50" wangid="0,0,0,0,0,1,1,1"/>
+   <wangtile tileid="56" wangid="0,1,0,0,0,0,0,0"/>
+   <wangtile tileid="57" wangid="1,1,0,0,0,0,0,1"/>
+   <wangtile tileid="58" wangid="0,0,0,0,0,0,0,1"/>
+   <wangtile tileid="64" wangid="1,1,0,0,0,1,1,1"/>
+   <wangtile tileid="65" wangid="1,1,1,1,0,0,0,1"/>
+   <wangtile tileid="72" wangid="0,0,0,1,1,1,1,1"/>
+   <wangtile tileid="73" wangid="0,1,1,1,1,1,0,0"/>
+  </wangset>
+ </wangsets>
+</tileset>

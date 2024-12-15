@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tileset version="1.10" tiledversion="1.11.0" name="House1" tilewidth="80" tileheight="112" tilecount="1" columns="1">
+ <image source="Cute_Fantasy/Cute_Fantasy/House/Buildings/Houses/House_1_5.png" width="80" height="112"/>
+ <tile id="0">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="11" y="52" width="58" height="54"/>
+  </objectgroup>
+ </tile>
+</tileset>

@@ -8,6 +8,7 @@ export declare interface OnlinePlayer {
 }
 
 export declare interface ServerInfo {
+  mapString: string;
   tick: number;
   position: Vector2D;
 }

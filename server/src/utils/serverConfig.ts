@@ -10,7 +10,7 @@ export function getServerConfig(): ServerConfig {
     return {
       tick: 128,
       ratio: 4,
-      pixelPerTile: 20,
+      pixelPerTile: 16,
     };
   }
 }

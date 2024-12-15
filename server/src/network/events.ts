@@ -36,7 +36,8 @@ export function setupEventsListener(io: Server, gameServer: GameServer) {
 
     socket.emit("serverInfo", {
       tick: gameServer.tick,
-      position: { x: 3900, y: 3900 },
+      position: { x: 1200, y: 1200 },
+      mapString: gameServer.mapString,
     });
 
     socket.on("disconnect", function () {

@@ -41,8 +41,8 @@ export declare interface GameConfig {
 }
 
 export declare interface WorldMapConfig {
-  lowerSrc: string;
-  upperSrc: string;
+  name: string;
+  src: string;
   mapSize: Vector2D;
 }
 

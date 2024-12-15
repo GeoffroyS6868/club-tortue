@@ -7,7 +7,6 @@ import Player from "./Player";
 import type { GameConfig, Vector2D } from "./types/config";
 import type { OnlinePlayer, ServerInfo } from "./types/protocol";
 import type { MouseInfo } from "./types/state";
-import { TurtleCity } from "./worlds/TurtleCity";
 import { tileToPosition } from "./utils/tiles";
 
 export default class Game {
@@ -27,10 +26,14 @@ export default class Game {
     this._ctx = this._canvas.getContext("2d")!;
     this._ctx.imageSmoothingEnabled = false;
     this._socket = config.socket;
-    this._map = new WorldMap(TurtleCity);
+    this._map = new WorldMap({
+      name: "Spawn",
+      src: "/game/maps/",
+      mapSize: { x: 3200, y: 3200 },
+    });
     this._mainPlayer = new Player({
       name: "",
-      position: { x: tileToPosition(10, 4, 20), y: tileToPosition(10, 4, 20) },
+      position: { x: tileToPosition(10, 4, 16), y: tileToPosition(10, 4, 16) },
       spriteConfig: {
         src: "/game/TortueSprite.png",
         ratio: 20,
@@ -40,8 +43,8 @@ export default class Game {
       entityType: ENTITY.PLAYER,
       socketId: config.socket.id || "",
       serverPosition: {
-        x: tileToPosition(10, 4, 20),
-        y: tileToPosition(10, 4, 20),
+        x: tileToPosition(10, 4, 16),
+        y: tileToPosition(10, 4, 16),
       },
     });
     this._players = new Map<string, Player>();
@@ -206,5 +209,6 @@ export default class Game {
     this._serverTick = serverInfo.tick;
     this._mainPlayer.serverTick = serverInfo.tick;
     this._mainPlayer.position = serverInfo.position;
+    this._map.updateMap(serverInfo.mapString);
   }
 }
